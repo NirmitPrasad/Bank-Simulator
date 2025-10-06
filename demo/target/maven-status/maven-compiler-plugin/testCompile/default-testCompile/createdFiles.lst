@@ -1,0 +1,14 @@
+com\bfe\route\repository\cache\AccountCacheTest.class
+example\bfe\AccountTest.class
+com\bfe\route\controller\ApplicationRegistrationControllerTest.class
+com\bfe\route\controller\RouteTestController$1.class
+com\example\HelloWorldTest.class
+com\bfe\route\util\BankUtilTest.class
+com\bfe\route\controller\RouteTestController.class
+com\bfe\route\filter\PreTransactionValidationTest.class
+com\bfe\route\enums\services\AccountValidationIntegrationTest.class
+com\bfe\route\controller\GatewayFallbackControllerTest.class
+com\example\HelloWorld.class
+com\bfe\route\service\BankServiceTest.class
+com\bfe\route\BfePlatformApplicationTest.class
+com\bfe\route\enums\services\AccountValidationIntegrationTest$1.class
