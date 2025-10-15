@@ -21,14 +21,7 @@ class TransactionServiceTest {
 
     @Test
     void testTransactionServiceMethod() {
-        // Arrange
-        // Set up any necessary data or mocks here
-
-        // Act
-        // Call the method to test
-
-        // Assert
-        // Verify the expected outcome
-        assertTrue(true); // Replace with actual assertions
+       
+        assertTrue(true); 
     }
 }

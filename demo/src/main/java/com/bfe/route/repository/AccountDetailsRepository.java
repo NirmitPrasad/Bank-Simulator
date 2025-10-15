@@ -15,6 +15,8 @@ import java.math.BigDecimal;
 public interface AccountDetailsRepository extends JpaRepository<Account, Long> {
     
     Optional<Account> findByAccountNumber(String accountNumber);
+    Optional<Account> findByAccountNumberAndIfscCode(String accountNumber, String ifscCode);
+    long deleteByAccountNumberAndIfscCode(String accountNumber, String ifscCode);
     
     @Query("SELECT a FROM Account a WHERE a.accountNumber = :accountNumber AND a.id != :excludeId")
     Optional<Account> findByAccountNumberAndIdNot(

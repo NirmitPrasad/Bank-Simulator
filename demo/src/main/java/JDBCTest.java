@@ -4,23 +4,23 @@ import java.sql.SQLException;
 
 public class JDBCTest {
     public static void main(String[] args) {
-        String url = "jdbc:mysql://localhost:3306/bankdb"; // bankdb = database name
-        String user = "root";  //MySQL username
-        String password = "your_password"; //MySQL password
+        String url = "jdbc:mysql://localhost:3306/bankdb"; 
+        String user = "root";  
+        String password = "your_password";
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             
             // Create connection
             Connection con = DriverManager.getConnection(url, user, password);
-            System.out.println("✅ JDBC Connection Successful!");
+            System.out.println(" JDBC Connection Successful!");
 
             con.close();
         } catch (ClassNotFoundException e) {
-            System.out.println("❌ JDBC Driver not found!");
+            System.out.println(" JDBC Driver not found!");
             e.printStackTrace();
         } catch (SQLException e) {
-            System.out.println("❌ JDBC Connection Failed!");
+            System.out.println(" JDBC Connection Failed!");
             e.printStackTrace();
         }
     }

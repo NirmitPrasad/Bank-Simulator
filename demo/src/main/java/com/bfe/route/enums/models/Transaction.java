@@ -58,11 +58,9 @@ public class Transaction {
     // Constructors
     
 
-    // Default constructor (needed by JPA)
     public Transaction() {
     }
 
-    // Custom constructor for DTO mapping in AccountRestController
     public Transaction(Long id, Integer accountId, BigDecimal amount,
                        LocalDate transactionDate, TransactionType type, String description) {
         this.id = id;

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Simulator - Login</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Left Section - Login Form -->
+        <div class="login-section">
+            <div class="header">
+                <div class="bank-icon">🏛️</div>
+                <h1>WELCOME TO THE BANK</h1>
+            </div>
+            
+            <div class="login-form">
+                <div class="user-icon">
+                    <div class="avatar">👤</div>
+                </div>
+                <h2>LOGIN</h2>
+                
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="accountNo">Account no</label>
+                        <input type="text" id="accountNo" name="accountNo" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    
+                    <div class="button-group">
+                        <button type="submit" class="btn btn-primary">LOGIN</button>
+                        <button type="button" class="btn btn-secondary" onclick="showSignup()">CREATE</button>
+                    </div>
+                    
+                    <div class="reset-section">
+                        <button type="button" class="btn btn-reset" onclick="forgotPassword()">FORGOT PASSWORD</button>
+                    </div>
+                </form>
+            </div>
+            
+        </div>
+        
+        <!-- Right Section - Illustrations -->
+        <div class="illustration-section">
+            <div class="phone-container">
+                <div class="phone">
+                    <div class="phone-screen">
+                        <div class="phone-user-icon">👤</div>
+                        <div class="phone-line"></div>
+                        <div class="phone-line dotted"></div>
+                        <div class="phone-button"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="characters">
+                <div class="character female">
+                    <div class="character-body">
+                        <div class="character-head"></div>
+                        <div class="character-torso"></div>
+                        <div class="character-legs"></div>
+                    </div>
+                </div>
+                
+                <div class="character male">
+                    <div class="character-body">
+                        <div class="character-head"></div>
+                        <div class="character-torso"></div>
+                        <div class="character-legs"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="decorative-elements">
+                <div class="cloud cloud1"></div>
+                <div class="cloud cloud2"></div>
+                <div class="cloud cloud3"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Custom Modal -->
+    <div id="customModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-icon">🏛️</div>
+                <h3 id="modalTitle">Bank Notification</h3>
+            </div>
+            <div class="modal-body">
+                <p id="modalMessage">Your message here</p>
+            </div>
+            <div class="modal-footer">
+                <button id="modalOkBtn" class="btn btn-primary">OK</button>
+                <button id="modalCancelBtn" class="btn btn-secondary" style="display: none;">Cancel</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

@@ -74,7 +74,7 @@ class AccountValidationIntegrationTest {
         );
 
         Map<String, Object> req = new HashMap<>();
-        req.put("customerId", customerId); // Use actual customer ID from database
+        req.put("customerId", customerId); 
         req.put("accountNumber", accNumber);
         req.put("amount", new BigDecimal("1000.00"));
         req.put("balance", new BigDecimal("1000.00"));
@@ -101,9 +101,9 @@ class AccountValidationIntegrationTest {
                 Integer.class, accNumber);
     }
 
-    // ----------------------------
+    
     //  Positive Cases
-    // ----------------------------
+    
 
     @Test void update_phone_linked_success() {
         Integer id = createTestAccount(genAccNumber());
@@ -231,9 +231,9 @@ class AccountValidationIntegrationTest {
         assertThat(acc).isEqualTo(newAcc);
     }
 
-    // ----------------------------
+    
     //  Negative Cases
-    // ----------------------------
+    
 
     @Test void update_phone_linked_invalid() {
         Integer id = createTestAccount(genAccNumber());
@@ -335,7 +335,7 @@ class AccountValidationIntegrationTest {
         Integer id2 = createTestAccount(acc2);
 
         // Try to update second account with first account's number
-        Map<String,Object> update = Map.of("account_number", acc1); // Changed to match @JsonProperty
+        Map<String,Object> update = Map.of("account_number", acc1); 
 
         ResponseEntity<Map<String, Object>> response = restTemplate.exchange(
             baseUrl() + "/" + id2,
@@ -359,7 +359,7 @@ class AccountValidationIntegrationTest {
     public void createTestAccount() {
         String accNumber = genAccNumber();
         Map<String, Object> req = new HashMap<>();
-        req.put("customerId", 1); // Use an existing customer ID from your database
+        req.put("customerId", 1); 
         req.put("accountNumber", accNumber);
         req.put("amount", new BigDecimal("1000.00"));
         req.put("balance", new BigDecimal("1000.00"));

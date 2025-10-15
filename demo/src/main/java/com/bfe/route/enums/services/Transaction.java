@@ -13,7 +13,7 @@ public class Transaction {
     private Long transactionId;
 
     @Column(nullable = false)
-    private Long accountId;   // changed from Integer → Long
+    private Long accountId;   
 
     @Column(nullable = false)
     private String utrNumber;
@@ -34,7 +34,7 @@ public class Transaction {
 
     private String receiverBy;
 
-    // --- Getters & Setters ---
+    // Getters & Setters
     public Long getTransactionId() {
         return transactionId;
     }
@@ -43,11 +43,11 @@ public class Transaction {
         this.transactionId = transactionId;
     }
 
-    public Long getAccountId() {   // Long type
+    public Long getAccountId() {   
         return accountId;
     }
 
-    public void setAccountId(Long accountId) {   // Long type
+    public void setAccountId(Long accountId) {   
         this.accountId = accountId;
     }
 

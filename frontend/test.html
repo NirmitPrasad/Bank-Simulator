@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Toggle Test</title>
+    <style>
+        .password-container {
+            position: relative;
+            width: 300px;
+            margin: 50px auto;
+        }
+        
+        .password-input {
+            width: 100%;
+            padding: 10px 40px 10px 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .toggle-btn {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 20px;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Password Toggle Test</h1>
+    
+    <div class="password-container">
+        <input type="password" id="testPassword" class="password-input" placeholder="Enter password">
+        <button type="button" class="toggle-btn" id="testToggle" onclick="testToggle()">👁️</button>
+    </div>
+    
+    <p>Type in the password field above and click the eye icon to toggle visibility.</p>
+    
+    <script>
+        function testToggle() {
+            const input = document.getElementById('testPassword');
+            const btn = document.getElementById('testToggle');
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                btn.textContent = '🙈';
+            } else {
+                input.type = 'password';
+                btn.textContent = '👁️';
+            }
+        }
+    </script>
+</body>
+</html>

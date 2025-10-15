@@ -20,7 +20,7 @@ public class GlobalExceptionHandler {
             .body("An unexpected error occurred: " + ex.getMessage());
     }
 
-    // Return proper 404 when no handler/static resource is found (Spring Boot 3)
+
     @ExceptionHandler(org.springframework.web.servlet.resource.NoResourceFoundException.class)
     public ResponseEntity<String> handleNoResource(org.springframework.web.servlet.resource.NoResourceFoundException ex) {
         return ResponseEntity

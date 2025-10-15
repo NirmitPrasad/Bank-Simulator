@@ -57,4 +57,32 @@ public class EmailService {
             throw e;
         }
     }
+
+    public void sendOtpEmail(String toEmail,
+                              String recipientName,
+                              String otp,
+                              int expiryMinutes) throws MessagingException {
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true);
+
+        helper.setFrom(fromEmail);
+        helper.setTo(toEmail);
+        helper.setSubject("Your One-Time Password (OTP)");
+
+        String body = "<p>Dear " + (recipientName != null ? recipientName : "Customer") + ",</p>" +
+                "<p>Your One-Time Password (OTP) for verification is:</p>" +
+                "<p style=\"font-size:20px;font-weight:bold;letter-spacing:3px\">" + otp + "</p>" +
+                "<p>This OTP is valid for <b>" + expiryMinutes + " minutes</b>. Do not share this OTP with anyone.</p>" +
+                "<br><p>Thank you for banking with us,<br><b>Bank Simulator Team</b></p>";
+
+        helper.setText(body, true);
+
+        try {
+            mailSender.send(message);
+            logger.info("OTP email sent successfully to {}", toEmail);
+        } catch (Exception e) {
+            logger.error("Failed to send OTP email to {} : {}", toEmail, e.getMessage());
+            throw e;
+        }
+    }
 }

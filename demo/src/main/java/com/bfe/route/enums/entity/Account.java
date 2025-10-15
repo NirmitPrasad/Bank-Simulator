@@ -1,6 +1,8 @@
 package com.bfe.route.enums.entity;
 
 import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -9,6 +11,7 @@ import java.util.ArrayList;
 
 @Entity
 @Table(name = "account_details")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,6 +56,7 @@ public class Account {
 
     // Full name of account holder
     @Column(name = "account_holder_name")
+    @NotBlank(message = "Account holder name is required")
     private String accountHolderName;
 
     @Column(name = "phone_linked")
@@ -61,6 +65,7 @@ public class Account {
 
     // Email of account holder
     @Column(name = "email", nullable = false)
+    @NotBlank(message = "Email is required")
     @Email(message = "Invalid email format")
     private String email;
 
@@ -68,20 +73,23 @@ public class Account {
     @DecimalMin(value = "0.0", inclusive = true, message = "Saving amount cannot be negative")
     private BigDecimal savingAmount;
 
+    @Column(name = "mpin", length = 6)
+    @Pattern(regexp = "^[0-9]{6}$", message = "MPIN must be exactly 6 digits")
+    private String mpin;
+
     @Column(name = "modified_at")
     private LocalDateTime modifiedAt;
 
-    // 🔹 Optimistic Locking
+    // Optimistic Locking
     @Version
     private Integer version;
 
-    // 🔹 Relationship with transactions
+    // Relationship with transactions
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<Transaction> transactions = new ArrayList<>();
 
-    // ==============================
     // Getters and Setters
-    // ==============================
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -123,6 +131,9 @@ public class Account {
 
     public BigDecimal getSavingAmount() { return savingAmount; }
     public void setSavingAmount(BigDecimal savingAmount) { this.savingAmount = savingAmount; }
+
+    public String getMpin() { return mpin; }
+    public void setMpin(String mpin) { this.mpin = mpin; }
 
     public LocalDateTime getModifiedAt() { return modifiedAt; }
     public void setModifiedAt(LocalDateTime modifiedAt) { this.modifiedAt = modifiedAt; }

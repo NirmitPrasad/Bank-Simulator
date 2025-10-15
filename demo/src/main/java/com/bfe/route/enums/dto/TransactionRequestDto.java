@@ -1,6 +1,7 @@
 package com.bfe.route.enums.dto;
 
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import java.math.BigDecimal;
 
@@ -15,9 +16,16 @@ public class TransactionRequestDto {
 
     private String description;
     
+    // Use account number based operations
+    @NotBlank(message = "Account number is required")
+    private String accountNumber;
+    
     // For transfer operations
     private String receiverBy;
     private String modeOfTransaction;
+    
+    // MPIN for transaction validation
+    private String mpin;
 
     // Getters and Setters
     public String getType() {
@@ -44,6 +52,14 @@ public class TransactionRequestDto {
         this.description = description;
     }
 
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
+    }
+
     public String getReceiverBy() {
         return receiverBy;
     }
@@ -58,5 +74,13 @@ public class TransactionRequestDto {
 
     public void setModeOfTransaction(String modeOfTransaction) {
         this.modeOfTransaction = modeOfTransaction;
+    }
+
+    public String getMpin() {
+        return mpin;
+    }
+
+    public void setMpin(String mpin) {
+        this.mpin = mpin;
     }
 }

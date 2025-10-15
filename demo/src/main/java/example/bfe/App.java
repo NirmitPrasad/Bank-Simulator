@@ -16,9 +16,9 @@ public class App {
 
         logger.info("Application started");
 
-        String url = "jdbc:mysql://localhost:3306/bank_simulator"; // replace 'testdb' with your DB name
-        String user = "root"; // your MySQL username
-        String password = System.getenv("MYSQL_DB_PASSWORD"); // get password from environment variable
+        String url = "jdbc:mysql://localhost:3306/bank_simulator"; 
+        String user = "root"; 
+        String password = System.getenv("MYSQL_DB_PASSWORD"); 
 
         try {
             logger.info("Connecting to MySQL database...");
@@ -47,7 +47,7 @@ public class App {
             tablesRs.close();
 
             // View contents of a table (example: 'customer_details')
-            String tableName = "customer_details"; // change to your table name
+            String tableName = "customer_details"; 
             logger.info("Selecting all rows from table: {}", tableName);
             ResultSet dataRs = stmt.executeQuery("SELECT * FROM " + tableName);
             System.out.println("Contents of table '" + tableName + "':");

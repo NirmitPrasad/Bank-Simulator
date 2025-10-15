@@ -2,25 +2,22 @@ package com.bfe.route.enums.dto;
 
 import com.bfe.route.enums.entity.Transaction;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;  // Changed from LocalDate
+import java.time.LocalDateTime;  
 
-/**
- * DTO returned to clients describing a transaction.
- * Simple mapper from entity -> DTO included.
- */
 public class TransactionDto {
 
     private Long transactionId;
     private String utrNumber;
-    private LocalDateTime transactionDate;  // Changed from LocalDate
+    private LocalDateTime transactionDate;  
     private BigDecimal transactionAmount;
     private BigDecimal balanceAmount;
     private String description;
     private String transactionType;
     private String modeOfTransaction;
-    private String receiverBy; // Added missing field
+    private String receiverBy; 
+    private String accountNumber;
 
-    // --- Getters / Setters ---
+    // Getters / Setters
     public Long getTransactionId() {
         return transactionId;
     }
@@ -38,7 +35,7 @@ public class TransactionDto {
     public LocalDateTime getTransactionDate() {
         return transactionDate;
     }
-    public void setTransactionDate(LocalDateTime transactionDate) {  // Changed parameter type
+    public void setTransactionDate(LocalDateTime transactionDate) { 
         this.transactionDate = transactionDate;
     }
 
@@ -84,17 +81,27 @@ public class TransactionDto {
         this.modeOfTransaction = modeOfTransaction;
     }
 
-    // --- helper mapper from entity -> dto ---
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
+    }
+
+    // helper mapper from entity
     public static TransactionDto fromEntity(Transaction transaction) {
         TransactionDto dto = new TransactionDto();
         dto.setTransactionId(transaction.getTransactionId());
         dto.setUtrNumber(transaction.getUtrNumber());
-        dto.setTransactionDate(transaction.getTransactionDate());  // Now matches the types
+        dto.setTransactionDate(transaction.getTransactionDate());  
         dto.setTransactionAmount(transaction.getTransactionAmount());
         dto.setBalanceAmount(transaction.getBalanceAmount());
         dto.setDescription(transaction.getDescription());
         dto.setTransactionType(transaction.getTransactionType());
         dto.setModeOfTransaction(transaction.getModeOfTransaction());
+        if (transaction.getAccount() != null) {
+            dto.setAccountNumber(transaction.getAccount().getAccountNumber());
+        }
         return dto;
     }
 }

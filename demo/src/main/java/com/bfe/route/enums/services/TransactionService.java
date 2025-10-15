@@ -132,7 +132,6 @@ public class TransactionService {
             }
         } catch (MessagingException e) {
             logger.error("Failed to send transaction notification: {}", e.getMessage(), e);
-            // Don't throw - we don't want to roll back the transaction just because email failed
         }
     }
 
@@ -175,7 +174,7 @@ public class TransactionService {
                 );
             }
         } catch (MessagingException e) {
-            System.err.println("⚠️ Email sending failed: " + e.getMessage());
+            System.err.println(" Email sending failed: " + e.getMessage());
         }
 
         return savedTransaction;
@@ -224,7 +223,7 @@ public class TransactionService {
                 );
             }
         } catch (MessagingException e) {
-            System.err.println("⚠️ Email sending failed: " + e.getMessage());
+            System.err.println(" Email sending failed: " + e.getMessage());
         }
 
         return savedTransaction;

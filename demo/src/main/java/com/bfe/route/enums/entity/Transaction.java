@@ -1,6 +1,7 @@
 package com.bfe.route.enums.entity;
 
 import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -20,7 +21,6 @@ public class Transaction {
     @Column(name = "transaction_date", nullable = false)
     private LocalDateTime transactionDate;
 
-    // Some schemas require this field; map it to avoid NOT NULL errors
     @Column(name = "debited_date")
     private LocalDateTime debitedDate;
 
@@ -31,6 +31,7 @@ public class Transaction {
     // Relationship to Account
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id", nullable = false)
+    @JsonBackReference
     private Account account;
 
     @Column(name = "balance_amount", precision = 15, scale = 2)
@@ -45,11 +46,10 @@ public class Transaction {
     @Column(name = "receiver_by")
     private String receiverBy;
 
-    // Some schemas may not have these columns; mark transient to avoid insert errors
-    @Transient
+    @Column(name = "transaction_type")
     private String transactionType;
 
-    @Transient
+    @Column(name = "mode_of_transaction")
     private String modeOfTransaction;
 
 
