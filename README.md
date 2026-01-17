@@ -4,12 +4,12 @@ Bank Simulator is a full-featured backend project that simulates real-world bank
 
 
 
-🚀 Key Features
+## 🚀 Key Features
 
 
 
 
-💳 Account Management
+## 💳 Account Management
 
 
 Create, update, and delete customer accounts
@@ -20,7 +20,7 @@ Prevent duplicate account creation using validation rules
 
 
 
-💸 Transaction System
+## 💸 Transaction System
 
 
 Deposit, withdraw, and transfer money between accounts
@@ -31,7 +31,7 @@ Handle transaction rollback on failures (ACID-compliant via @Transactional)
 
 
 
-📧 Email Notifications
+## 📧 Email Notifications
 
 
 Send email alerts on successful deposits, withdrawals, and transfers
@@ -42,7 +42,7 @@ Template-based notification messages
 
 
 
-📊 Transaction History & Reporting
+## 📊 Transaction History & Reporting
 
 
 View all transactions by account or date range
@@ -53,7 +53,7 @@ JSON-formatted API responses
 
 
 
-🧩 Error Handling & Validation
+## 🧩 Error Handling & Validation
 
 
 Custom exceptions for invalid accounts, insufficient balance, and more
@@ -65,7 +65,7 @@ Input validation with Hibernate Validator annotations
 
 
 
-🧠 Additional Highlights
+## 🧠 Additional Highlights
 
 
 Fully documented REST APIs with Swagger / OpenAPI
@@ -79,7 +79,7 @@ Layered architecture (Controller → Service → Repository → Entity)
 
 
 
-🛠️ Tech Stack
+## 🛠️ Tech Stack
 
 
 Layer	              Technologies
@@ -92,7 +92,35 @@ Build Tool	        Maven / Gradle
 
 
 
-📂 Project Structure
+## 📸 Screenshots
+
+**🔑 Signup/Login Page**
+<img width="1280" height="553" alt="image" src="https://github.com/user-attachments/assets/a71da591-5126-4d3c-8276-5169702e2bd3" />
+
+**👀Personal Details**
+<img width="1280" height="541" alt="image" src="https://github.com/user-attachments/assets/55350209-130a-4acc-a522-6254b499d649" />
+
+**📧Email Verification**
+<img width="826" height="810" alt="image" src="https://github.com/user-attachments/assets/5207bd7c-40bf-4c84-acde-80c3536553a3" />
+
+**🔐Password Setup**
+<img width="783" height="813" alt="image" src="https://github.com/user-attachments/assets/37f9d051-e6d1-40fb-8b4e-6d109f756fe4" />
+
+**✅Account Creation**
+<img width="544" height="630" alt="image" src="https://github.com/user-attachments/assets/43b9c987-9b47-4cd7-96eb-48964961e6b4" />
+
+**🏠Home Page**
+<img width="1280" height="540" alt="image" src="https://github.com/user-attachments/assets/9bd76b31-71cb-4396-a9b8-52582305dc59" />
+
+**💵Transaction History**
+<img width="1280" height="559" alt="image" src="https://github.com/user-attachments/assets/099ae573-7c62-43de-adfc-c6cce76c3c99" />
+
+**📧Debit & Credit Email Notification**
+![WhatsApp Image 2026-01-17 at 6 26 27 PM](https://github.com/user-attachments/assets/ea993c00-926f-4521-89a4-53e5116e0a4b)
+![WhatsApp Image 2026-01-17 at 6 26 27 PM](https://github.com/user-attachments/assets/ce6854f4-d626-4be2-b6f4-4afcf15baf41)
+
+
+## 📂 Project Structure
 
 
 com.bfe.route.enums
@@ -107,7 +135,7 @@ com.bfe.route.enums
 
 
 
-🌐 Example API Endpoints
+## 🌐 Example API Endpoints
 
 
 Method	   Endpoint	                     Description
@@ -121,16 +149,19 @@ GET	       /api/transaction/all	         View all transactions
 
 
 
-💡 Future Enhancements
+## 💡 Future Enhancements
 
 
 🔐 JWT-based authentication
+
 💼 Role-based access (Admin, Customer)
+
 📱 Integration with React or Angular frontend
+
 🪙 Support for multi-currency transactions
 
 
-🧾 License
+## 🧾 License
 
 
 This project is open-source and available under the MIT License.
