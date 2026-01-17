@@ -101,7 +101,7 @@ Build Tool	        Maven / Gradle
 
 
 
-**👀Personal Details**
+**Personal Details**
 
 <img width="1280" height="541" alt="image" src="https://github.com/user-attachments/assets/55350209-130a-4acc-a522-6254b499d649" />
 
