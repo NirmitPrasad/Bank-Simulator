@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Simulator - Dashboard</title>
+    <link rel="stylesheet" href="dashboard-styles.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <div class="bank-icon">🏦</div>
+                <h1>Bank Simulator</h1>
+            </div>
+            <div class="header-right">
+                <div class="user-menu">
+                    <span class="user-name">Welcome, User</span>
+                    <button class="logout-btn" onclick="logout()">Logout</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Left Navigation -->
+            <nav class="sidebar">
+                <div class="nav-item active" onclick="showSection('dashboard')">
+                    <div class="nav-icon">📊</div>
+                    <span>Dashboard</span>
+                </div>
+                <div class="nav-item" onclick="showSection('accounts')">
+                    <div class="nav-icon">💳</div>
+                    <span>Accounts</span>
+                </div>
+                <div class="nav-item" onclick="goToAddAccount()">
+                    <div class="nav-icon">➕</div>
+                    <span>Add Account</span>
+                </div>
+                <div class="nav-item" onclick="showSection('transaction')">
+                    <div class="nav-icon">💰</div>
+                    <span>Transaction</span>
+                </div>
+                <div class="nav-item" onclick="showSection('transfer')">
+                    <div class="nav-icon">📤</div>
+                    <span>Transfer</span>
+                </div>
+                <div class="nav-item" onclick="showSection('history')">
+                    <div class="nav-icon">🕒</div>
+                    <span>History</span>
+                </div>
+            </nav>
+
+            <!-- Main Content Area -->
+            <main class="content-area">
+                <!-- Dashboard Section -->
+                <section id="dashboard-section" class="content-section active">
+                    <div class="section-header">
+                        <h2>Dashboard</h2>
+                    </div>
+                    <div class="dashboard-cards">
+                        <div class="dashboard-card balance-card">
+                            <div class="card-content">
+                                <div class="card-info">
+                                    <h3>Total Balance</h3>
+                                <div class="card-value balance-value">₹0.00</div>
+                                </div>
+                                <div class="card-icon balance-icon">₹</div>
+                            </div>
+                        </div>
+                        
+                        <div class="dashboard-card accounts-card">
+                            <div class="card-content">
+                                <div class="card-info">
+                                    <h3>Total Accounts</h3>
+                                    <div class="card-value accounts-value">0</div>
+                                </div>
+                                <div class="card-icon accounts-icon">👤</div>
+                            </div>
+                        </div>
+                        
+                        <div class="dashboard-card notifications-card">
+                            <div class="card-content">
+                                <div class="card-info">
+                                    <h3>Notifications</h3>
+                                    <div class="card-value notifications-value">0</div>
+                                </div>
+                                <div class="card-icon notifications-icon">🔔</div>
+                            </div>
+                        </div>
+                        
+                        <div class="dashboard-card recent-notifications-card">
+                            <div class="card-content">
+                                <div class="card-info">
+                                    <h3>Recent Notifications</h3>
+                                    <div class="empty-notifications">No notifications</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </section>
+
+                <!-- Accounts Section -->
+                <section id="accounts-section" class="content-section">
+                    <div class="section-header">
+                        <h2>All Accounts</h2>
+                        <div class="header-buttons">
+                            <button class="delete-btn" onclick="openDeleteAccountModal()">
+                                <span class="delete-icon">🗑️</span>
+                                Delete
+                            </button>
+                            <button class="refresh-btn" onclick="refreshAccounts()">
+                                <span class="refresh-icon">🔄</span>
+                                Refresh
+                            </button>
+                        </div>
+                    </div>
+                    <div class="accounts-container">
+                        <div class="empty-state">
+                            <div class="empty-icon">💳</div>
+                            <p>No accounts found. Create one to get started!</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Add Account Section -->
+                <section id="create-account-section" class="content-section">
+                    <div class="section-header">
+                        <h2>Add New Account</h2>
+                    </div>
+                    <div class="form-container">
+                        <form id="createAccountForm" class="account-form">
+                            <div class="form-group">
+                                <label for="accountType">Account Type</label>
+                                <select id="accountType" name="accountType" required>
+                                    <option value="">Select Account Type</option>
+                                    <option value="savings">Savings</option>
+                                    <option value="checking">Checking</option>
+                                    <option value="business">Business</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="initialDeposit">Initial Deposit</label>
+                                <input type="number" id="initialDeposit" name="initialDeposit" placeholder="Enter amount" min="0" step="0.01" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Add Account</button>
+                        </form>
+                    </div>
+                </section>
+
+                <!-- Transaction Section -->
+                <section id="transaction-section" class="content-section">
+                    <div class="section-header">
+                        <h2>Make Transaction</h2>
+                    </div>
+                    <div class="form-container">
+                        <form id="transactionForm" class="transaction-form">
+                            <div class="form-group">
+                                <label for="transactionType">Transaction Type</label>
+                                <select id="transactionType" name="transactionType" required>
+                                    <option value="">Select Type</option>
+                                    <option value="deposit">Deposit</option>
+                                    <option value="withdrawal">Withdrawal</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="accountNumber">Account Number</label>
+                                <input type="text" id="accountNumber" name="accountNumber" placeholder="Enter account number" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="amount">Amount</label>
+                                <div class="input-with-spinner">
+                                    <input type="number" id="amount" name="amount" placeholder="Enter amount" min="0" step="100" value="0" required>
+                                    <div class="spinner-controls">
+                                        <button type="button" class="spinner-btn spinner-up" onclick="incrementTransactionAmount()">▲</button>
+                                        <button type="button" class="spinner-btn spinner-down" onclick="decrementTransactionAmount()">▼</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group" id="mpinGroup" style="display: none;">
+                                <label for="transactionMpin">MPIN (6 digits)</label>
+                                <input type="password" id="transactionMpin" name="mpin" placeholder="Enter 6-digit MPIN" maxlength="6" pattern="[0-9]{6}">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Process Transaction</button>
+                        </form>
+                    </div>
+                </section>
+
+                <!-- Transfer Section -->
+                <section id="transfer-section" class="content-section">
+                    <div class="section-header">
+                        <h2>Transfer Funds</h2>
+                    </div>
+                    <div class="form-container">
+                        <form id="transferForm" class="transfer-form">
+                            <div class="form-group">
+                                <label for="fromAccount">Source Account Number</label>
+                                <input type="text" id="fromAccount" name="fromAccount" placeholder="Enter source account" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="toAccount">Destination Account Number</label>
+                                <input type="text" id="toAccount" name="toAccount" placeholder="Enter destination account" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="transferAmount">Amount</label>
+                                <div class="input-with-spinner">
+                                    <input type="number" id="transferAmount" name="transferAmount" placeholder="Enter amount" min="0" step="100" value="0" required>
+                                    <div class="spinner-controls">
+                                        <button type="button" class="spinner-btn spinner-up" onclick="incrementTransferAmount()">▲</button>
+                                        <button type="button" class="spinner-btn spinner-down" onclick="decrementTransferAmount()">▼</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="transferMpin">MPIN (6 digits)</label>
+                                <input type="password" id="transferMpin" name="mpin" placeholder="Enter 6-digit MPIN" maxlength="6" pattern="[0-9]{6}" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Transfer Funds</button>
+                        </form>
+                    </div>
+                </section>
+
+                <!-- History Section -->
+                <section id="history-section" class="content-section">
+                    <div class="section-header">
+                        <h2>Transaction History</h2>
+                        <div class="header-buttons">
+                            <button class="statement-btn" onclick="openStatementModal()">
+                                <span class="statement-icon">📄</span>
+                                Statement
+                            </button>
+                            <button class="refresh-btn" onclick="refreshHistory()">
+                                <span class="refresh-icon">🔄</span>
+                                Refresh
+                            </button>
+                        </div>
+                    </div>
+                    <div class="history-container">
+                        <div class="empty-state">
+                            <div class="empty-icon">📊</div>
+                            <p>No transactions found. Start by creating an account!</p>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <!-- Custom Logout Modal -->
+    <div id="logoutModal" class="logout-modal">
+        <div class="logout-modal-content">
+            <div class="logout-modal-header">
+                <div class="logout-icon">🏦</div>
+                <h3>Bank Simulator</h3>
+            </div>
+            <div class="logout-modal-body">
+                <p>Are you sure you want to logout?</p>
+            </div>
+            <div class="logout-modal-footer">
+                <button class="logout-btn-cancel" onclick="closeLogoutModal()">Cancel</button>
+                <button class="logout-btn-confirm" onclick="confirmLogout()">Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statement Modal -->
+    <div id="statementModal" class="statement-modal">
+        <div class="statement-modal-content">
+            <div class="statement-modal-header">
+                <div class="statement-icon">📄</div>
+                <h3>Download Statement</h3>
+                <button class="close-btn" onclick="closeStatementModal()">&times;</button>
+            </div>
+            <div class="statement-modal-body">
+                <p>Enter the account number to download the transaction statement:</p>
+                <form id="statementForm" onsubmit="downloadStatement(event)">
+                    <div class="form-group">
+                        <label for="statementAccountNumber">Account Number</label>
+                        <input type="text" id="statementAccountNumber" name="accountNumber" 
+                               placeholder="Enter account number (e.g., ACC-2025-229)" required>
+                    </div>
+                    <div class="statement-modal-footer">
+                        <button type="button" class="statement-btn-cancel" onclick="closeStatementModal()">Cancel</button>
+                        <button type="submit" class="statement-btn-download">Download Excel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Account Modal -->
+    <div id="deleteAccountModal" class="delete-account-modal">
+        <div class="delete-account-modal-content">
+            <div class="delete-account-modal-header">
+                <div class="delete-account-icon">🗑️</div>
+                <h3>Delete Account</h3>
+                <button class="close-btn" onclick="closeDeleteAccountModal()">&times;</button>
+            </div>
+            <div class="delete-account-modal-body">
+                <p>Enter the account details to permanently delete the account:</p>
+                <form id="deleteAccountForm" onsubmit="deleteAccount(event)">
+                    <div class="form-group">
+                        <label for="deleteAccountNumber">Account Number</label>
+                        <input type="text" id="deleteAccountNumber" name="accountNumber" 
+                               placeholder="Enter account number (e.g., ACC-2025-229)" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="deletePassword">Password</label>
+                        <input type="password" id="deletePassword" name="password" 
+                               placeholder="Enter account password" required>
+                    </div>
+                    <div class="delete-account-modal-footer">
+                        <button type="button" class="delete-btn-cancel" onclick="closeDeleteAccountModal()">Cancel</button>
+                        <button type="submit" class="delete-btn-confirm">Delete Account</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Notification Modal -->
+    <div id="notificationModal" class="notification-modal">
+        <div class="notification-content">
+            <div class="notification-header">
+                <div class="notification-icon" id="notificationIcon">⚠️</div>
+                <h3 id="notificationTitle">Notification</h3>
+            </div>
+            <div class="notification-body">
+                <p id="notificationMessage">This is a notification message.</p>
+            </div>
+            <div class="notification-footer">
+                <button class="notification-btn" onclick="closeNotification()">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="dashboard-script.js"></script>
+    
+    <!-- Transaction Success Modal -->
+    <div id="txSuccessModal" class="alert-modal">
+        <div class="alert-modal-content" style="max-width:560px">
+            <div class="alert-modal-header">
+                <div class="alert-icon">💸</div>
+                <h3>Transaction Successful</h3>
+            </div>
+            <div class="alert-modal-body">
+                <p id="txSuccessMessage">Your transaction was completed.</p>
+            </div>
+            <div class="alert-modal-footer">
+                <button class="alert-btn" onclick="closeTxSuccessModal()">OK</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

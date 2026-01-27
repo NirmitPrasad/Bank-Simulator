@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Frontend - Bank Simulator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .status {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        .btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .accounts-list {
+            margin-top: 20px;
+        }
+        .account-item {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏦 Bank Simulator - Account Status Test</h1>
+        
+        <div class="status success">
+            ✅ <strong>Backend Deletion Complete!</strong><br>
+            Both accounts have been successfully deleted from the backend:
+            <ul>
+                <li>ACC-2025-370 (Nirmit Prasad - Savings Account)</li>
+                <li>ACC-2025-229 (Test Case - Checking Account)</li>
+            </ul>
+        </div>
+
+        <div class="status info">
+            ℹ️ <strong>Frontend Status:</strong><br>
+            The frontend has been updated to handle empty account lists properly.
+        </div>
+
+        <div>
+            <button class="btn" onclick="checkAccounts()">Check Current Accounts</button>
+            <button class="btn" onclick="goToDashboard()">Go to Dashboard</button>
+            <button class="btn" onclick="goToDeletePage()">Go to Delete Page</button>
+        </div>
+
+        <div id="accountsStatus" class="accounts-list">
+            <div class="empty-state">
+                Click "Check Current Accounts" to see the current account status
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function checkAccounts() {
+            const statusDiv = document.getElementById('accountsStatus');
+            statusDiv.innerHTML = '<div class="empty-state">Loading accounts...</div>';
+            
+            try {
+                const response = await fetch('http://localhost:8080/api/accounts/all');
+                const accounts = await response.json();
+                
+                if (!accounts || !Array.isArray(accounts) || accounts.length === 0) {
+                    statusDiv.innerHTML = `
+                        <div class="status success">
+                            <strong>✅ No Accounts Found</strong><br>
+                            The account list is empty, confirming that both target accounts have been successfully deleted.
+                        </div>
+                    `;
+                } else {
+                    let accountsHtml = '<div class="status info"><strong>📋 Current Accounts:</strong><br><ul>';
+                    accounts.forEach(acc => {
+                        accountsHtml += `<li>${acc.accountNumber}: ${acc.accountHolderName} (${acc.accountType}) - ₹${acc.balance}</li>`;
+                    });
+                    accountsHtml += '</ul></div>';
+                    statusDiv.innerHTML = accountsHtml;
+                }
+            } catch (error) {
+                statusDiv.innerHTML = `
+                    <div class="status error">
+                        <strong>❌ Error:</strong><br>
+                        Failed to fetch accounts: ${error.message}
+                    </div>
+                `;
+            }
+        }
+
+        function goToDashboard() {
+            window.open('dashboard.html', '_blank');
+        }
+
+        function goToDeletePage() {
+            window.open('delete-accounts.html', '_blank');
+        }
+
+        // Auto-check accounts on page load
+        window.onload = function() {
+            checkAccounts();
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Simulator - Add Account</title>
+    <link rel="stylesheet" href="create-account-styles.css">
+</head>
+<body>
+    <div class="account-creation-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <div class="bank-icon">🏦</div>
+                <h1>Bank Simulator</h1>
+            </div>
+            <div class="header-right">
+                <button class="back-btn" onclick="goBack()">← Back to Dashboard</button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="account-creation-content">
+                <!-- Page Title -->
+                <div class="page-title">
+                    <h2>Account Details</h2>
+                    <p>Complete the following steps to add your new account</p>
+                </div>
+
+                <!-- Progress Line -->
+                <div class="progress-container">
+                    <div class="progress-line">
+                        <div class="progress-step active" data-step="1">
+                            <div class="step-circle">
+                                <span class="step-number">1</span>
+                            </div>
+                            <div class="step-label">Personal Details</div>
+                        </div>
+                        <div class="progress-step" data-step="2">
+                            <div class="step-circle">
+                                <span class="step-number">2</span>
+                            </div>
+                            <div class="step-label">Verification</div>
+                        </div>
+                        <div class="progress-step" data-step="3">
+                            <div class="step-circle">
+                                <span class="step-number">3</span>
+                            </div>
+                            <div class="step-label">KYC</div>
+                        </div>
+                        <div class="progress-step" data-step="4">
+                            <div class="step-circle">
+                                <span class="step-number">4</span>
+                            </div>
+                            <div class="step-label">Password</div>
+                        </div>
+                        <div class="progress-step" data-step="5">
+                            <div class="step-circle">
+                                <span class="step-number">5</span>
+                            </div>
+                            <div class="step-label">Added</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Steps -->
+                <div class="form-container">
+                    <!-- Step 1: Personal Details -->
+                    <div id="step-1" class="form-step active">
+                        <div class="step-header">
+                            <h3>Personal Details</h3>
+                            <p>Please provide your personal information</p>
+                        </div>
+                        <form id="personalDetailsForm" class="account-form">
+                            <div class="form-table">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="nameOnAccount">Name on Account *</label>
+                                        <input type="text" id="nameOnAccount" name="nameOnAccount" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="accountHolderName">Account Holder Name *</label>
+                                        <input type="text" id="accountHolderName" name="accountHolderName" required>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="email">Email Address *</label>
+                                        <input type="email" id="email" name="email" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="phone">Phone Number *</label>
+                                        <input type="tel" id="phone" name="phone" required>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="branch">Branch *</label>
+                                        <select id="branch" name="branch" required>
+                                            <option value="">Select Branch</option>
+                                            <option value="main">Main Branch</option>
+                                            <option value="downtown">Downtown Branch</option>
+                                            <option value="uptown">Uptown Branch</option>
+                                            <option value="suburb">Suburb Branch</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="accountType">Account Type *</label>
+                                        <select id="accountType" name="accountType" required>
+                                            <option value="">Select Account Type</option>
+                                            <option value="savings">Savings Account</option>
+                                            <option value="checking">Checking Account</option>
+                                            <option value="business">Business Account</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-primary" onclick="nextStep(2)">Next Step</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Step 2: Verification -->
+                    <div id="step-2" class="form-step">
+                        <div class="step-header">
+                            <h3>Verification</h3>
+                            <p>Verify your email address with OTP</p>
+                        </div>
+                        <form id="verificationForm" class="account-form">
+                            <div class="form-table">
+                                <div class="form-row">
+                                    <div class="form-group full-width">
+                                        <div class="email-display">
+                                            <label>Email Address</label>
+                                            <div class="email-value" id="displayEmail">user@example.com</div>
+                                            <p class="email-note">We will send a secure OTP to this email address. Do not share it with anyone.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <button type="button" class="btn btn-secondary" id="sendOtpBtn" onclick="sendOTP()">Send OTP</button>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="otp">Enter OTP *</label>
+                                        <input type="text" id="otp" name="otp" placeholder="Enter 6-digit OTP" maxlength="6" required>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group full-width">
+                                        <div class="otp-status" id="otpStatus"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-secondary" onclick="prevStep(1)">Previous</button>
+                                <button type="button" class="btn btn-primary" onclick="nextStep(3)">Next Step</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Step 3: KYC -->
+                    <div id="step-3" class="form-step">
+                        <div class="step-header">
+                            <h3>KYC (Know Your Customer)</h3>
+                            <p>Complete your financial profile</p>
+                        </div>
+                        <form id="kycForm" class="account-form">
+                            <div class="form-table">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="occupation">Occupation *</label>
+                                        <input type="text" id="occupation" name="occupation" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="annualIncome">Annual Income *</label>
+                                        <select id="annualIncome" name="annualIncome" required>
+                                            <option value="">Select Income Range</option>
+                                            <option value="0-250000">₹0 - ₹2,50,000</option>
+                                            <option value="250000-500000">₹2,50,000 - ₹5,00,000</option>
+                                            <option value="500000-1000000">₹5,00,000 - ₹10,00,000</option>
+                                            <option value="1000000+">₹10,00,000+</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="initialDeposit">Initial Deposit *</label>
+                                        <div class="input-with-spinner">
+                                            <input type="number" id="initialDeposit" name="initialDeposit" min="10000" step="100" required placeholder="Minimum ₹10,000" value="10000">
+                                            <div class="spinner-controls">
+                                                <button type="button" class="spinner-btn spinner-up" onclick="incrementDeposit()">▲</button>
+                                                <button type="button" class="spinner-btn spinner-down" onclick="decrementDeposit()">▼</button>
+                                            </div>
+                                        </div>
+                                        <div class="deposit-note">Minimum deposit required: ₹10,000</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="dateOfBirth">Date of Birth *</label>
+                                        <input type="date" id="dateOfBirth" name="dateOfBirth" required>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group full-width">
+                                        <label>
+                                            <input type="checkbox" id="termsAccepted" name="termsAccepted" required>
+                                            I agree to the Terms and Conditions and Privacy Policy *
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-secondary" onclick="prevStep(2)">Previous</button>
+                                <button type="button" class="btn btn-primary" onclick="nextStep(4)">Complete Registration</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Step 4: Password -->
+                    <div id="step-4" class="form-step">
+                        <div class="step-header">
+                            <h3>Password Setup</h3>
+                            <p>Set up your account password and view your account details</p>
+                        </div>
+                        <form id="passwordForm" class="account-form">
+                            <div class="form-table">
+                                <div class="form-row">
+                                    <div class="form-group full-width">
+                                        <div class="account-display">
+                                            <label>Generated Account Number</label>
+                                            <div class="account-value" id="displayAccountNumber">ACC-XXXX-XXXX</div>
+                                            <p class="account-note">Your account number has been generated</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="password">Password *</label>
+                                        <input type="password" id="password" name="password" required placeholder="Enter password">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="confirmPassword">Confirm Password *</label>
+                                        <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Confirm password">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="mpin">MPIN (6 digits) *</label>
+                                        <input type="password" id="mpin" name="mpin" required placeholder="Enter 6-digit MPIN" maxlength="6" pattern="[0-9]{6}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="confirmMpin">Confirm MPIN *</label>
+                                        <input type="password" id="confirmMpin" name="confirmMpin" required placeholder="Confirm 6-digit MPIN" maxlength="6" pattern="[0-9]{6}">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group full-width">
+                                        <div class="password-status" id="passwordStatus"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-secondary" onclick="prevStep(3)">Previous</button>
+                                <button type="button" class="btn btn-primary" onclick="nextStep(5)">Complete Registration</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Step 5: Added -->
+                    <div id="step-5" class="form-step">
+                        <div class="step-header">
+                            <h3>Account Added Successfully!</h3>
+                            <p>Your account has been added and is ready to use</p>
+                        </div>
+                        <div class="success-content">
+                            <div class="success-icon">✅</div>
+                            <div class="account-details">
+                                <h4>Account Information</h4>
+                                <div class="account-info">
+                                    <div class="info-item">
+                                        <span class="info-label">Account Number:</span>
+                                        <span class="info-value" id="generatedAccountNumber">ACC-2024-001</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">Account Type:</span>
+                                        <span class="info-value" id="generatedAccountType">Savings Account</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">Initial Balance:</span>
+                                        <span class="info-value" id="generatedBalance">₹0.00</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-primary" onclick="goToDashboard()">Go to Dashboard</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Alert Modal -->
+    <div id="alertModal" class="alert-modal">
+        <div class="alert-modal-content">
+            <div class="alert-modal-header">
+                <div class="alert-icon">⚠️</div>
+                <h3>Bank Simulator</h3>
+            </div>
+            <div class="alert-modal-body">
+                <p id="alertMessage">Please enter a valid OTP before proceeding.</p>
+            </div>
+            <div class="alert-modal-footer">
+                <button class="alert-btn" onclick="closeAlertModal()">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Confirmation Modal -->
+    <div id="confirmModal" class="alert-modal">
+        <div class="alert-modal-content">
+            <div class="alert-modal-header">
+                <div class="alert-icon">❓</div>
+                <h3>Bank Simulator</h3>
+            </div>
+            <div class="alert-modal-body">
+                <p id="confirmMessage">Are you sure you want to go back? All progress will be lost.</p>
+            </div>
+            <div class="alert-modal-footer">
+                <button class="alert-btn alert-btn-cancel" onclick="closeConfirmModal(false)">Cancel</button>
+                <button class="alert-btn alert-btn-confirm" onclick="closeConfirmModal(true)">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Alert Modal -->
+    <div id="customAlertModal" class="custom-alert-modal">
+        <div class="custom-alert-content">
+            <div class="custom-alert-header">
+                <div class="custom-alert-icon" id="customAlertIcon">⚠️</div>
+                <h3 id="customAlertTitle">Alert</h3>
+            </div>
+            <div class="custom-alert-body">
+                <p id="customAlertMessage">This is an alert message.</p>
+            </div>
+            <div class="custom-alert-footer">
+                <button class="custom-alert-btn" onclick="closeCustomAlert()">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="create-account-script.js"></script>
+</body>
+</html>

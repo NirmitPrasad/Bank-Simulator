@@ -1,0 +1,20 @@
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
+import com.bfe.route.config.TestConfig;
+import com.bfe.route.repository.AccountDetailsRepository;
+
+@SpringBootTest
+@ContextConfiguration(classes = TestConfig.class)
+class AccountDetailsRepositoryTest {
+
+    @Autowired
+    private AccountDetailsRepository accountDetailsRepository;
+
+    @Test
+    void contextLoads() {
+        assertNotNull(accountDetailsRepository);
+    }
+}
