@@ -100,7 +100,8 @@ function loadSectionData(sectionName) {
 // Load dashboard data
 function loadDashboardData() {
     // Fetch accounts and update dashboard cards
-    fetch('http://localhost:8080/api/accounts/all')
+    const apiUrl = (window.APP_CONFIG ? window.APP_CONFIG.API_URL : 'http://localhost:8080');
+    fetch(`${apiUrl}/api/accounts/all`)
       .then(res => res.json())
       .then(accounts => {
         // Handle empty response or null accounts
@@ -166,7 +167,8 @@ function loadAccounts() {
     const container = document.querySelector('.accounts-container');
     if (!container) return;
 
-    fetch('http://localhost:8080/api/accounts/all')
+    const apiUrl = (window.APP_CONFIG ? window.APP_CONFIG.API_URL : 'http://localhost:8080');
+    fetch(`${apiUrl}/api/accounts/all`)
         .then(res => res.json())
         .then(accounts => {
             // Handle empty response or null accounts
@@ -221,7 +223,8 @@ function loadTransactionHistory() {
     if (!container) return;
     
     // Load all transactions across all accounts
-    fetch('http://localhost:8080/api/accounts/transactions')
+    const apiUrl = (window.APP_CONFIG ? window.APP_CONFIG.API_URL : 'http://localhost:8080');
+    fetch(`${apiUrl}/api/accounts/transactions`)
       .then(res => res.json())
       .then(list => renderTransactionHistory(list))
       .catch(() => {
@@ -239,7 +242,8 @@ function fetchTransactionHistory(accountNumber) {
     }
     
     container.innerHTML = '<div class="empty-state"><div class="empty-icon">⏳</div><p>Loading transactions...</p></div>';
-    fetch(`http://localhost:8080/api/accounts/${encodeURIComponent(accountNumber)}/transactions`)
+    const apiUrl = (window.APP_CONFIG ? window.APP_CONFIG.API_URL : 'http://localhost:8080');
+    fetch(`${apiUrl}/api/accounts/${encodeURIComponent(accountNumber)}/transactions`)
       .then(res => res.json())
       .then(list => {
         renderTransactionHistory(list);
@@ -361,7 +365,8 @@ function handleCreateAccount(e) {
     submitBtn.textContent = 'Creating...';
     submitBtn.disabled = true;
 
-    fetch('http://localhost:8080/api/accounts/create', {
+    const apiUrl = (window.APP_CONFIG ? window.APP_CONFIG.API_URL : 'http://localhost:8080');
+    fetch(`${apiUrl}/api/accounts/create`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(accountData)
@@ -407,7 +412,8 @@ function handleTransaction(e) {
     submitBtn.textContent = 'Processing...';
     submitBtn.disabled = true;
     
-    fetch('http://localhost:8080/api/accounts/transactions', {
+    const apiUrl = (window.APP_CONFIG ? window.APP_CONFIG.API_URL : 'http://localhost:8080');
+    fetch(`${apiUrl}/api/accounts/transactions`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(transactionData)
@@ -483,7 +489,8 @@ function handleTransfer(e) {
     submitBtn.textContent = 'Transferring...';
     submitBtn.disabled = true;
     
-    fetch('http://localhost:8080/api/accounts/transfer', {
+    const apiUrl = (window.APP_CONFIG ? window.APP_CONFIG.API_URL : 'http://localhost:8080');
+    fetch(`${apiUrl}/api/accounts/transfer`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(transferData)

@@ -540,7 +540,8 @@ function goToDashboard() {
     }
 
     // Send to backend
-    fetch('http://localhost:8080/api/accounts/create', {
+    const apiUrl = (window.APP_CONFIG ? window.APP_CONFIG.API_URL : 'http://localhost:8080');
+    fetch(`${apiUrl}/api/accounts/create`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
@@ -560,7 +561,8 @@ function goToDashboard() {
     })
     .catch(err => {
         console.error('Failed to create account:', err);
-        const hint = ' Please confirm that your Spring Boot server is running on http://localhost:8080 and MySQL is reachable.';
+        const apiUrl = (window.APP_CONFIG ? window.APP_CONFIG.API_URL : 'http://localhost:8080');
+        const hint = ` Please confirm that your backend server is running on ${apiUrl} and MySQL is reachable.`;
         showCustomAlert('Failed to create account. ' + (err.message || '') + hint, 'error');
     });
 }
@@ -648,7 +650,8 @@ function sendOTP() {
     sendOtpBtn.textContent = 'Sending...';
     sendOtpBtn.disabled = true;
     
-    fetch('http://localhost:8080/api/otp/send', {
+    const apiUrl = (window.APP_CONFIG ? window.APP_CONFIG.API_URL : 'http://localhost:8080');
+    fetch(`${apiUrl}/api/otp/send`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, name })
@@ -681,7 +684,8 @@ function validateOTP() {
         return false;
     }
     
-    return fetch('http://localhost:8080/api/otp/verify', {
+    const apiUrl = (window.APP_CONFIG ? window.APP_CONFIG.API_URL : 'http://localhost:8080');
+    return fetch(`${apiUrl}/api/otp/verify`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, otp: enteredOTP })
