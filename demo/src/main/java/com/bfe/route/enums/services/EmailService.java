@@ -15,29 +15,29 @@ public class EmailService {
 
     private static final Logger logger = LoggerFactory.getLogger(EmailService.class);
 
-    @Value("${resend.api.key}")
-    private String resendApiKey;
+    @Value("${brevo.api.key}")
+    private String brevoApiKey;
 
-    @Value("${resend.from.email:onboarding@resend.dev}")
+    @Value("${brevo.from.email:banksimulator01@gmail.com}")
     private String fromEmail;
 
     private final RestTemplate restTemplate = new RestTemplate();
-    private static final String RESEND_API_URL = "https://api.resend.com/emails";
+    private static final String BREVO_API_URL = "https://api.brevo.com/v3/smtp/email";
 
-    private void sendEmail(String toEmail, String subject, String htmlBody) {
+    private void sendEmail(String toEmail, String toName, String subject, String htmlBody) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.setBearerAuth(resendApiKey);
+        headers.set("api-key", brevoApiKey);
 
         Map<String, Object> body = Map.of(
-            "from", fromEmail,
-            "to", List.of(toEmail),
+            "sender", Map.of("name", "Bank Simulator", "email", fromEmail),
+            "to", List.of(Map.of("email", toEmail, "name", toName != null ? toName : "Customer")),
             "subject", subject,
-            "html", htmlBody
+            "htmlContent", htmlBody
         );
 
         HttpEntity<Map<String, Object>> request = new HttpEntity<>(body, headers);
-        restTemplate.postForEntity(RESEND_API_URL, request, String.class);
+        restTemplate.postForEntity(BREVO_API_URL, request, String.class);
     }
 
     public void sendOtpEmail(String toEmail,
@@ -51,7 +51,7 @@ public class EmailService {
                 "<p>This OTP is valid for <b>" + expiryMinutes + " minutes</b>. Do not share this OTP with anyone.</p>" +
                 "<br><p>Thank you for banking with us,<br><b>Bank Simulator Team</b></p>";
         try {
-            sendEmail(toEmail, subject, htmlBody);
+            sendEmail(toEmail, recipientName, subject, htmlBody);
             logger.info("OTP email sent successfully to {}", toEmail);
         } catch (Exception e) {
             logger.error("Failed to send OTP email to {} : {}", toEmail, e.getMessage());
@@ -79,7 +79,7 @@ public class EmailService {
                 "Available Balance: <b>₹" + balance + "</b></p>" +
                 "<br><p>Thank you for banking with us,<br><b>Bank Simulator Team</b></p>";
         try {
-            sendEmail(toEmail, subject, htmlBody);
+            sendEmail(toEmail, accountHolderName, subject, htmlBody);
             logger.info("Transaction email sent successfully to {}", toEmail);
         } catch (Exception e) {
             logger.error("Failed to send transaction email to {} : {}", toEmail, e.getMessage());
