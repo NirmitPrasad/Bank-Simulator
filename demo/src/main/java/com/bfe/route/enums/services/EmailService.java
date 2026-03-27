@@ -27,7 +27,10 @@ public class EmailService {
     private void sendEmail(String toEmail, String toName, String subject, String htmlBody) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
+        
+        // Try both common Brevo/Sendinblue headers for maximum compatibility
         headers.set("api-key", brevoApiKey);
+        headers.set("x-sib-api-key", brevoApiKey);
 
         Map<String, Object> body = Map.of(
             "sender", Map.of("name", "Bank Simulator", "email", fromEmail),
