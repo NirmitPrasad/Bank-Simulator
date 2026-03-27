@@ -112,11 +112,6 @@
       <scope>provided</scope>
     </dependency>
 
-    <!-- Spring Boot Starter Mail (for email notifications) -->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-mail</artifactId>
-    </dependency>
 
     <!-- Apache POI for Excel export -->
     <dependency>

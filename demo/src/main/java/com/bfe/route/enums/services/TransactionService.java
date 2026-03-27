@@ -10,7 +10,7 @@ import com.bfe.route.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import jakarta.mail.MessagingException;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -130,7 +130,7 @@ public class TransactionService {
                     dateTime
                 );
             }
-        } catch (MessagingException e) {
+        } catch (Exception e) {
             logger.error("Failed to send transaction notification: {}", e.getMessage(), e);
         }
     }
@@ -173,8 +173,8 @@ public class TransactionService {
                     LocalDateTime.now().toString()
                 );
             }
-        } catch (MessagingException e) {
-            System.err.println(" Email sending failed: " + e.getMessage());
+        } catch (Exception e) {
+            logger.error("Email sending failed: {}", e.getMessage());
         }
 
         return savedTransaction;
@@ -222,8 +222,8 @@ public class TransactionService {
                     LocalDateTime.now().toString()
                 );
             }
-        } catch (MessagingException e) {
-            System.err.println(" Email sending failed: " + e.getMessage());
+        } catch (Exception e) {
+            logger.error("Email sending failed: {}", e.getMessage());
         }
 
         return savedTransaction;
